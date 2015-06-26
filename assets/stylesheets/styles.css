@@ -1,0 +1,130 @@
+html, body {
+	color: black;
+	font-family: 'Open Sans', sans-serif;
+	
+	-moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.app {
+	width: 100%;
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.appBody {
+
+}
+
+.headerBar {
+	width: 100%;
+	height: 5px;
+	background-color: #47D147;
+}
+
+.input_layer {
+	width: 100%;
+	height: 60px;
+	margin-bottom: 25px;
+}
+
+.input_layer_input {
+	width: 80%;
+	height: 100%;
+	float: left;
+	font-size: 27px;
+	padding: 7px;
+	border: 1px solid #47D147;
+}
+
+.input_layer_input:focus {
+	outline: 0px;
+}
+
+
+.input_layer_btn {
+	width: 20%;
+	height: 100%;
+	background-color: #47D147;
+	float: left;
+	color: white;
+	text-align: center;
+	padding-top: 9px;
+	font-size: 31px;
+}
+
+.input_layer_btn:hover {
+	color: #47D147;
+	background-color: white;
+	cursor: pointer;
+	border: 1px solid #47D147;
+}
+
+.todoItem {
+	width: 100%;
+	height: 50px;
+	background-color: #ADEBAD;
+	margin-bottom: 3px;
+}
+
+.todoIcon {
+
+}
+
+.todoIcon:hover {
+	background-color: white;
+	cursor: pointer;
+}
+
+.todoItemFinish {
+	background-image: url('../images/done.png');
+	width: 30%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: 60% auto;
+	background-position: center center;
+	float: left;
+}
+
+.todoItemEdit {
+	background-image: url('../images/edit.png');
+	width: 30%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: 60% auto;
+	background-position: center center;
+	float: left;
+}
+
+.todoItemRemove {
+	background-image: url('../images/remove.png');
+	width: 30%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: 60% auto;
+	background-position: center center;
+	float: left;
+}
+
+.todoItemText {
+	width: 70%;
+	height: 100%;
+	color: black;
+	float: left;
+	padding: 11px;
+	font-size: 20px;
+}
+
+.todoItemControls {
+	width: 30%;
+	height: 100%;
+	float: left;
+}
+
+
