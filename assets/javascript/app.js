@@ -104,7 +104,6 @@ var ItemView = Backbone.View.extend({
 			this.$el.children(".todoItemControls").children(".todoItemEdit").css('background-color', 'white');
 			this.editState = 1;
 		
-		/* When finished editing */
 		} else {
 			
 			var el2 = this.el.firstChild;
@@ -128,7 +127,6 @@ var ItemView = Backbone.View.extend({
 		
 		
 	},
-	
 	delete: function() {
 		// Destroys the model (and references on server and localStorage)
 		this.model.destroy();
