@@ -22,6 +22,8 @@ var Item = Backbone.Model.extend({
 			app.items.add(this);
 			new ItemView({model : this});
 			this.saveLocally();
+			// Manually triggering as the item is saved
+			this.trigger('change', this);
 		} else {
 			console.log("Validation error");
 		}
@@ -55,8 +57,8 @@ var ItemView = Backbone.View.extend({
 	},
 	
 	initialize: function() {
-		console.log("Rendering " + this.model.get('name'));
-		this.render();
+		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'destroy', this.remove);
 	},
 	
 	todoDiv: document.getElementsByClassName('todo-list')[0],
@@ -73,13 +75,16 @@ var ItemView = Backbone.View.extend({
 		return this;
 	},
 	
+	addToDom: function() {
+		
+	},
+	
 	log : function(event) {
 		console.log(this.model.get('name'));
 	},
 	
 	finish: function(event) {
 		this.model.set('status', 1);
-		console.log('finished' + this.model.get('name'));
 		this.moveToFinished();
 	},
 	
@@ -119,13 +124,14 @@ var ItemView = Backbone.View.extend({
 			
 		}
 	},
+	closeEdit: function() {
+		
+		
+	},
 	
 	delete: function() {
-		// Removes the view from the DOM and deletes the view object
-		this.remove();
 		// Destroys the model (and references on server and localStorage)
 		this.model.destroy();
-		console.log("Deleted" + this.model.get('name') + "view");
 	},
 	
 	moveToFinished: function() {
