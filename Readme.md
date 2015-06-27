@@ -1,6 +1,3 @@
 # Workmaster
-### A web based to-do list application. 
-
-### Workmaster
-#### Workmaster is browser based application used to keep records of daily
-#### tasks.
+A browser based application which can be used track daily tasks.
+Experimental Javascript and Backbone learning project.
