@@ -46,12 +46,12 @@ var Items = Backbone.Collection.extend({
 var ItemView = Backbone.View.extend({
 	tagName : 'div',
 	className : 'todoItem',
+	editState: 0,
 	events : {
 		"click" : "log",
 		"click .todoItemFinish" : "finish",
 		"click .todoItemEdit" : "edit",
 		"click .todoItemRemove" : "delete",
-		"click .todoItemFinishEdit" : "saveEdit"
 	},
 	
 	initialize: function() {
@@ -59,7 +59,7 @@ var ItemView = Backbone.View.extend({
 		this.render();
 	},
 	
-	todoDiv: $('.todo-list'),
+	todoDiv: document.getElementsByClassName('todo-list')[0],
 	render: function() {
 		var t1 = '<div class="todoItemText">{{ name }}</div>';
 		var t2 = '<div class="todoItemControls"><div class="todoItemFinish todoIcon"></div><div class="todoItemEdit todoIcon"></div><div class="todoItemRemove todoIcon"></div></div>';
@@ -67,8 +67,8 @@ var ItemView = Backbone.View.extend({
 		Mustache.parse(template);
 		var rendered = Mustache.render(template, {name: this.model.get('name')});
 		
-		this.$el.html(rendered);
-		this.todoDiv.append(this.$el);
+		this.el.innerHTML = rendered;
+		this.todoDiv.appendChild(this.el);
 		
 		return this;
 	},
@@ -84,14 +84,40 @@ var ItemView = Backbone.View.extend({
 	},
 	
 	edit: function(event) {
-		const textField = this.$el.children(".todoItemText");
-		textField.html('<input class="itemTextEditField"></input>');
-	},
-	
-	saveEdit: function(event) {
-		const textField = this.$el.children(".todoItemText");
-		this.model.set({'name' : textField.html()});
-		textField.html(this.model.get('name'));
+		if (this.editState == 0) {
+			
+			var name = this.model.get('name');
+			
+			var el1 = document.createElement("input");
+			el1.setAttribute("class", "itemTextEditField");
+			el1.value = name;
+			
+			var el2 = this.el.firstChild;
+			
+			this.replaceOneElementWithAnother(el1, el2, this.el);
+			
+			this.$el.children(".todoItemControls").children(".todoItemEdit").css('background-color', 'white');
+			this.editState = 1;
+		
+		/* When finished editing */
+		} else {
+			
+			var el2 = this.el.firstChild;
+			
+			this.model.set({name: el2.value});
+			
+			var el1 = document.createElement("div");
+			el1.setAttribute("class", "todoItemText");
+			el1.innerHTML = this.model.get('name');
+			
+			
+			
+			this.replaceOneElementWithAnother(el1, el2, this.el);
+			
+			this.$el.children(".todoItemControls").children(".todoItemEdit").css('background-color', '');
+			this.editState = 0;
+			
+		}
 	},
 	
 	delete: function() {
@@ -106,7 +132,11 @@ var ItemView = Backbone.View.extend({
 		this.$el.hide();
 		$(".done-list").append(this.$el);
 		this.$el.show();
-	}
+	},
+	
+	replaceOneElementWithAnother: function(el1, el2, el2Parent) {
+		el2Parent.replaceChild(el1, el2);
+	},
 });
 
 
